@@ -16,6 +16,7 @@ class Surat extends CI_Controller{
 		$this->load->model('surat_model');
 		$this->load->model('surat_keluar_model');
 		$this->load->model('config_model');
+		$this->load->model('referensi_model');
 		$this->modul_ini = 4;
 	}
 

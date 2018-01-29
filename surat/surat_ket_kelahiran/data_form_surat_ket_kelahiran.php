@@ -4,6 +4,9 @@
 		$data['agama'] = $this->penduduk_model->list_agama();
 		$data['pekerjaan'] = $this->penduduk_model->list_pekerjaan('ucwords');
 		$data['sex'] = $this->penduduk_model->list_sex();
+		$data['tempat_dilahirkan'] = $this->referensi_model->list_kode_array(TEMPAT_DILAHIRKAN);
+		$data['jenis_kelahiran'] = $this->referensi_model->list_kode_array(JENIS_KELAHIRAN);
+		$data['penolong_kelahiran'] = $this->referensi_model->list_kode_array(PENOLONG_KELAHIRAN);
 		$data['nomor'] = $this->input->post('nomor_main');
 		$_SESSION['post'] = $_POST;
 
@@ -49,6 +52,19 @@
 		}else{
 			unset($data['bayi']);
 			unset($_SESSION['id_bayi']);
+		}
+		// Data kelahiran ditampilkan dan bisa diedit di form
+		if (!empty($data['bayi'])){
+			$_SESSION['post']['hari']	= hari(strtotime($bayi['tanggallahir']));
+			$_SESSION['post']['tanggallahir'] = tgl_indo_dari_str($data['bayi']['tanggallahir']);
+			$_SESSION['post']['waktu_lahir'] = $data['bayi']['waktu_lahir'];
+			$_SESSION['post']['tempat_dilahirkan'] = $data['bayi']['tempat_dilahirkan'];
+			$_SESSION['post']['alamat_tempat_lahir'] = $data['bayi']['alamat_tempat_lahir'];
+			$_SESSION['post']['jenis_kelahiran'] = $data['bayi']['jenis_kelahiran'];
+			$_SESSION['post']['kelahiran_anak_ke'] = $data['bayi']['kelahiran_anak_ke'];
+			$_SESSION['post']['penolong_kelahiran'] = $data['bayi']['penolong_kelahiran'];
+			$_SESSION['post']['berat_lahir'] = $data['bayi']['berat_lahir'];
+			$_SESSION['post']['panjang_lahir'] = $data['bayi']['panjang_lahir'];
 		}
 
 		if($this->input->post('ibu')==2) unset($_SESSION['id_ibu']);
